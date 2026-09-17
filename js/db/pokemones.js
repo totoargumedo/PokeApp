@@ -1,4 +1,4 @@
-const pokemones = [
+export const pokemones = [
   {
     id: 1,
     nombre: "Bulbasaur",

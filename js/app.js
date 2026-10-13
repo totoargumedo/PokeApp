@@ -1,4 +1,5 @@
 import { pokemones } from "./db/pokemones.js";
+import { usuarios } from "./db/usuarios.js";
 
 // ==========================================
 // ELEMENTO PRINCIPAL DE LA APLICACIÓN
@@ -108,36 +109,19 @@ botonPokedex.addEventListener("click", function (event) {
 // Estructura básica de la pantalla
 const login = `
   <section class="login-section">
+          <h1>Iniciar sesión</h1>
 
-    <h1>Iniciar sesión</h1>
+          <form id="form-login">
+            <label for="username"> Usuario </label>
 
-    <form id="form-login">
+            <input type="text" id="username" required />
 
-      <label for="username">
-        Usuario
-      </label>
+            <label for="password"> Contraseña </label>
 
-      <input 
-        type="text" 
-        id="username"
-      />
-
-      <label for="password">
-        Contraseña
-      </label>
-
-      <input 
-        type="password" 
-        id="password"
-      />
-
-      <button type="submit">
-        Ingresar
-      </button>
-
-    </form>
-
-  </section>
+            <input type="password" id="password" required />
+            <button type="submit">Ingresar</button>
+          </form>
+        </section>
 `;
 
 // Función para cargar los elementos dinámicos
@@ -154,6 +138,27 @@ botonLogin.addEventListener("click", function (event) {
   app.innerHTML = login;
 
   cargarLogin();
+
+  const formularioLogin = document.querySelector("#form-login");
+
+  formularioLogin.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const username = document.querySelector("#username").value;
+    const password = document.querySelector("#password").value;
+    let encontrado = false;
+    for (let usuario of usuarios) {
+      if (usuario.username === username && usuario.password === password) {
+        alert("Bienvenido " + usuario.nombre);
+        encontrado = true;
+        break;
+      } else {
+        encontrado = false;
+      }
+    }
+    if (!encontrado) {
+      alert("Usuario o contraseña incorrectos");
+    }
+  });
 });
 
 // ==========================================

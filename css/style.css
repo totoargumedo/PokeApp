@@ -424,3 +424,37 @@ body {
 .btn-detalle:hover {
   background-color: var(--naranja);
 }
+
+/* =========================
+   PERFIL USUARIO COMÚN
+========================= */
+
+.user-profile {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-profile-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.user-profile-info div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: 300px;
+  }
+
+  p span {
+    color: #ffffff;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}

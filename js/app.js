@@ -148,15 +148,26 @@ botonLogin.addEventListener("click", function (event) {
     let encontrado = false;
     for (let usuario of usuarios) {
       if (usuario.username === username && usuario.password === password) {
-        alert("Bienvenido " + usuario.nombre);
         encontrado = true;
+        if (usuario.admin === true) {
+          app.innerHTML = perfilAdmin;
+          cargarPerfilAdmin();
+        } else {
+          app.innerHTML = perfilEstandar;
+          cargarPerfilEstandar();
+        }
         break;
       } else {
         encontrado = false;
       }
     }
     if (!encontrado) {
-      alert("Usuario o contraseña incorrectos");
+      document
+        .querySelector("#form-login")
+        .insertAdjacentHTML(
+          "beforeend",
+          `<p class="error-message">Usuario o contraseña incorrectos</p>`,
+        );
     }
   });
 });
@@ -270,9 +281,131 @@ botonBatalla.addEventListener("click", function (event) {
 
   cargarBatalla();
 });
+// ==========================================
+// 6. PERFIL USUARIO ESTANDAR
+// ==========================================
+function cargarPerfilEstandar() {
+  console.log("Perfil de usuario estándar cargado");
+}
+
+const perfilEstandar = `
+<section class="user-profile" id="user-profile">
+          <h2>Perfil de usuario</h2>
+          <div class="user-profile-info">
+            <div>
+              <img
+                src="./assets/avatar/default.png"
+                alt="Avatar de usuario"
+                class="user-profile-avatar"
+              />
+            </div>
+            <div>
+              <p>
+                Nombre de usuario:
+                <span class="user-profile-username">Usuario</span>
+              </p>
+              <p>
+                Email:
+                <span class="user-profile-email">usuario@example.com</span>
+              </p>
+            </div>
+          </div>
+        </section>`;
 
 // ==========================================
-// 6. LANDING INICIAL
+// 7. PERFIL USUARIO ADMIN
+// ==========================================
+function cargarPerfilAdmin() {
+  console.log("Perfil de usuario admin cargado");
+
+  const formularioNuevoPokemon = document.querySelector("#form-nuevo-pokemon");
+
+  formularioNuevoPokemon.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const numero = document.querySelector("#pokemon-number");
+    const nombre = document.querySelector("#pokemon-name");
+    const tipo = document.querySelector("#pokemon-type");
+    const imagen = document.querySelector("#pokemon-image");
+
+    const nuevoPokemon = {
+      id: numero.valueAsNumber,
+      nombre: nombre.value,
+      tipo: [tipo.value],
+      imagen: imagen.value,
+    };
+
+    console.log("Nuevo Pokémon agregado:", nuevoPokemon);
+    pokemones.push(nuevoPokemon);
+
+    formularioNuevoPokemon.reset();
+    numero.focus();
+  });
+}
+
+const perfilAdmin = ` <section class="user-profile" id="user-profile">
+          <h2>Perfil de usuario</h2>
+          <div class="user-profile-info">
+            <div>
+              <img
+                src="./assets/avatar/default.png"
+                alt="Avatar de usuario"
+                class="user-profile-avatar"
+              />
+            </div>
+            <div>
+              <p>
+                Nombre de usuario:
+                <span class="user-profile-username">Usuario</span>
+              </p>
+              <p>
+                Email:
+                <span class="user-profile-email">usuario@example.com</span>
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="new-pokemon" id="new-pokemon">
+          <h2>Nuevo Pokémon</h2>
+          <form id="form-nuevo-pokemon">
+            <label for="pokemon-number"> Numero en el Pokedex: </label>
+            <input type="number" id="pokemon-number" required />
+
+            <label for="pokemon-name">Nombre:</label>
+            <input type="text" id="pokemon-name" required />
+
+            <label for="pokemon-type">Tipo:</label>
+            <input type="text" id="pokemon-type" required />
+
+            <label for="pokemon-image">Imagen (URL):</label>
+            <input type="text" id="pokemon-image" required />
+
+            <button type="submit">Agregar Pokémon</button>
+          </form>
+        </section>`;
+
+// ==========================================
+// 8. LANDING INICIAL
+// ==========================================
+
+app.innerHTML = landing;
+
+cargarLanding();
+
+botonBatalla.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  app.innerHTML = batalla;
+
+  cargarBatalla();
+});
+
+// ==========================================
+// 7. PERFIL USUARIO ADMIN
+// ==========================================
+
+// ==========================================
+// 8. LANDING INICIAL
 // ==========================================
 
 app.innerHTML = landing;

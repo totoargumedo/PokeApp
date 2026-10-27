@@ -156,6 +156,13 @@ botonLogin.addEventListener("click", function (event) {
           app.innerHTML = perfilEstandar;
           cargarPerfilEstandar();
         }
+        document.querySelector(".user-profile-username").textContent =
+          usuario.username;
+        document.querySelector(".user-profile-email").textContent =
+          usuario.email;
+        document.querySelector(".user-profile-avatar").src = usuario.avatar;
+        document.querySelector(".user-profile-avatar").alt =
+          `Avatar de ${usuario.username}`;
         break;
       } else {
         encontrado = false;
